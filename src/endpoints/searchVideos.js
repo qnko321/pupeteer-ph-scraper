@@ -30,10 +30,12 @@ async function searchVideos(query, pageIndex) {
     });
 
     const data = await page.evaluate(() => {
-        const validityCheck = document.querySelector("#texResulttBelowTitle > div:nth-child(1)").textContent.trim() === "We're sorry, but the requested search cannot be found. Broaden your search."
-        if (!validityCheck) {
-            return []
-        }
+        try {
+            const validityCheck = document.querySelector("#texResulttBelowTitle > div:nth-child(1)").textContent.trim() === "We're sorry, but the requested search cannot be found. Broaden your search."
+            if (!validityCheck) {
+                return []
+            }
+        } catch {}
 
         const videosElements = document.querySelector("#videoSearchResult").children
 
