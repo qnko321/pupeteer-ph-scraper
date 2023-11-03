@@ -1,6 +1,6 @@
 # PornHub Scraper
 
-This package heavily relies on Puppeteer
+**This package heavily relies on Puppeteer**
 
 ### Available functions:
 
