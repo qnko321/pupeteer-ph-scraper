@@ -1,22 +1,6 @@
-const puppeteer = require('puppeteer') ;
-
 // sort: "mv" | "mr" | "tr" | "lg" | undefined  (default: mr)
 // pageIndex: number | undefined (default) (default: 1)
-async function collectModelVideos(url, sort, pageIndex) {
-    const browser = await puppeteer.launch({
-        headless: "new"
-    });
-    const page = await browser.newPage()
-    await page.setRequestInterception(true)
-
-    page.on('request', (request) => {
-        if (request.resourceType() !== "document") {
-            request.abort();
-        } else {
-            request.continue();
-        }
-    });
-
+async function collectModelVideos(page, url, sort, pageIndex) {
     await page.setViewport({width: 1920, height: 900});
 
     let fullUrl = `https://www.pornhub.com${url}/videos`
@@ -47,7 +31,7 @@ async function collectModelVideos(url, sort, pageIndex) {
         waitUntil: "domcontentloaded"
     });
 
-    const data = await page.evaluate(() => {
+    return await page.evaluate(() => {
         const videosElements = document.querySelector("#mostRecentVideosSection").children
 
         const videos = []
@@ -74,9 +58,6 @@ async function collectModelVideos(url, sort, pageIndex) {
 
         return videos
     })
-
-    browser.close();
-    return data
 }
 
 module.exports = collectModelVideos

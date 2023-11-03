@@ -1,23 +1,7 @@
 const puppeteer = require('puppeteer') ;
 
 // pageIndex: number | undefined  (default: 1)
-async function collectStartVideos(pageIndex) {
-    const browser = await puppeteer.launch({
-        headless: "new"
-    });
-    const page = await browser.newPage()
-    await page.setRequestInterception(true)
-
-    page.on('request', (request) => {
-        if (request.resourceType() !== "document") {
-            request.abort();
-        } else {
-            request.continue();
-        }
-    });
-
-    await page.setViewport({width: 1920, height: 900});
-
+async function collectStartVideos(page, pageIndex) {
     let fullUrl = `https://www.pornhub.com/video`
 
     if (pageIndex > 1) {
@@ -65,7 +49,6 @@ async function collectStartVideos(pageIndex) {
         return videos
     })
 
-    browser.close();
     return data
 }
 

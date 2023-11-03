@@ -2,23 +2,7 @@ const puppeteer = require('puppeteer') ;
 
 // query: string | undefined (default) (default: "")
 // pageIndex: number | undefined (default) (default: 1)
-async function searchVideos(query, pageIndex) {
-    const browser = await puppeteer.launch({
-        headless: "new"
-    });
-    const page = await browser.newPage()
-    await page.setRequestInterception(true)
-
-    page.on('request', (request) => {
-        if (request.resourceType() !== "document") {
-            request.abort();
-        } else {
-            request.continue();
-        }
-    });
-
-    await page.setViewport({width: 1920, height: 900});
-
+async function searchVideos(page, query, pageIndex) {
     let fullUrl = `https://www.pornhub.com/video/search?search=${query.replaceAll(' ', '+')}`
 
     if (pageIndex > 1) {
@@ -72,7 +56,6 @@ async function searchVideos(query, pageIndex) {
         return videos
     })
 
-    browser.close();
     return data
 }
 

@@ -1,13 +1,5 @@
-const collectModelData = require("./endpoints/model/collectData")
-const collectModelVideos = require("./endpoints/model/collectVideos")
-const collectStartVideos = require("./endpoints/collectStartVideos")
-const searchVideos = require('./endpoints/searchVideos')
-const collectVideoData = require("./endpoints/collectVideoData")
+const createBrowser = require("./Browser");
 
 module.exports = {
-    collectModelData,
-    collectModelVideos,
-    collectStartVideos,
-    searchVideos,
-    collectVideoData
+    createBrowser,
 }

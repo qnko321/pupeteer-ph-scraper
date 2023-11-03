@@ -1,20 +1,6 @@
 const puppeteer = require('puppeteer') ;
 
-async function collectVideoData(url) {
-    const browser = await puppeteer.launch({
-        headless: "new"
-    });
-    const page = await browser.newPage()
-    await page.setRequestInterception(true)
-
-    page.on('request', (request) => {
-        if (request.resourceType() !== "document") {
-            request.abort();
-        } else {
-            request.continue();
-        }
-    });
-
+async function collectVideoData(page, url) {
     let resolveJson;
     let json_promise = new Promise((re, _) => {
         resolveJson = re
@@ -116,8 +102,6 @@ async function collectVideoData(url) {
         })
     })
 
-    await page.setViewport({width: 1920, height: 900});
-
     let fullUrl = `https://www.pornhub.com${url}`
 
     await page.goto(fullUrl, {
@@ -182,7 +166,6 @@ async function collectVideoData(url) {
     const jsonData = await json_promise
     const htmlData = await html_promise
 
-    browser.close()
     return Object.assign({}, jsonData, htmlData)
 }
 
