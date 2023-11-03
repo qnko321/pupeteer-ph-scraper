@@ -67,13 +67,15 @@ async function searchVideos(url) {
 
         const pornstars = []
 
-        for (let i = 0; i < pornstarNames.length; i++) {
-            const pornstarName = pornstarNames[i]
-            const url = `/pornstar/${pornstarName.toLowerCase().replaceAll(' ', '-')}`
-            pornstars.push({
-                name: pornstarName,
-                url
-            })
+        if (pornstarNames.length !== 1 && pornstarNames[0] !== "no") {
+            for (let i = 0; i < pornstarNames.length; i++) {
+                const pornstarName = pornstarNames[i]
+                const url = `/pornstar/${pornstarName.toLowerCase().replaceAll(' ', '-')}`
+                pornstars.push({
+                    name: pornstarName,
+                    url
+                })
+            }
         }
 
         const categories = json2.videodata.categories_in_video.split(",")
