@@ -6,6 +6,11 @@ async function collectModelData(page, url) {
     });
 
     return await page.evaluate(() => {
+        const name = document.querySelector("body > div.wrapper > div.container > div.\\31 23.amateurModel.noBio > div > section > div.coverImage > div.bottomGradient > div > div.name > h1").textContent.trim()
+        const avatarUrl = document.querySelector("#getAvatar").attributes.getNamedItem("src").value
+        const coverUrl = document.querySelector("#coverPictureDefault").attributes.getNamedItem("src").value
+
+
         const infoPieces = document.querySelector("body > div.wrapper > div.container > div.\\31 23.amateurModel.noBio > div > section > div.model-details.js-headerContent > div.bottomDescription.bio.display-grid.auto-columns > div.detailedInfo.column.text.js-infoText.last-column > div").children
 
         const info = {}
@@ -25,6 +30,9 @@ async function collectModelData(page, url) {
         const yearlyRank = ranksElements.item(4).children.item(0).textContent.trim()
 
         return {
+            name,
+            avatarUrl,
+            coverUrl,
             info,
             about,
             ranks: {
