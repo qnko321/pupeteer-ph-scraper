@@ -49,6 +49,20 @@ async function searchVideos(url) {
             }
         }
 
+        let bestIndex = 0
+        let bestQuality = 0
+        for (let i = 0; i < mediaDefinitions.length; i++) {
+            const mediaDefinition = mediaDefinitions[i]
+            const quality = Number(mediaDefinition.quality)
+
+            if (quality > bestQuality) {
+                bestQuality = quality
+                bestIndex = i
+            }
+        }
+
+        const bestQualityMediaDefinition = mediaDefinitions[bestIndex]
+
         const nextVideo = {
             thumbnailUrl: json.nextVideo.thumb,
             duration: json.nextVideo.duration,
@@ -97,6 +111,7 @@ async function searchVideos(url) {
             thumbnailUrl,
             title,
             mediaDefinitions,
+            bestQualityMediaDefinition,
             nextVideo,
         })
     })
