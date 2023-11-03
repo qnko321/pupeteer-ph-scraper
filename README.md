@@ -8,9 +8,9 @@
 
 Example: 
 ```js
-    collectModelData("/model/diana-rider").then(data => {
-        console.log(data)
-    })
+collectModelData("/model/diana-rider").then(data => {
+    console.log(data)
+})
 ```
 This logs to the console:
 ```js
@@ -55,9 +55,9 @@ This logs to the console:
 
 Example:
 ```js
-    collectModelVideos("/model/diana-rider", "mv", 2).then(data => {
-        console.log(data)
-    })
+collectModelVideos("/model/diana-rider", "mv", 2).then(data => {
+    console.log(data)
+})
 ```
 This logs to the console the models most watched videos from the second page:
 ```js
