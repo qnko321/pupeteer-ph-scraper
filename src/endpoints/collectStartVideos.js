@@ -18,7 +18,7 @@ async function collectStartVideos(pageIndex) {
 
     await page.setViewport({width: 1920, height: 900});
 
-    let fullUrl = `https://www.pornhub.com/videos`
+    let fullUrl = `https://www.pornhub.com/video`
 
     if (pageIndex > 1) {
         fullUrl += `?page=${pageIndex}`
