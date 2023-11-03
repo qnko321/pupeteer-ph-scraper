@@ -44,6 +44,8 @@ async function searchVideos(query, pageIndex) {
                 const rating = video.querySelector("div.thumbnail-info-wrapper.clearfix > div > div > div > div").textContent.trim()
                 const duration = video.querySelector("div > div.phimage > a > div > var").textContent.trim()
                 const thumbnailUrl = video.querySelector("div > div.phimage > a > img").attributes.getNamedItem("src").value
+                const author = document.querySelector("div > div.thumbnail-info-wrapper.clearfix > div.videoUploaderBlock.clearfix > div > a").textContent.trim()
+                const authorUrl = document.querySelector("div > div.thumbnail-info-wrapper.clearfix > div.videoUploaderBlock.clearfix > div > a").attributes.getNamedItem("href").value
 
                 videos.push({
                     url,
@@ -51,7 +53,11 @@ async function searchVideos(query, pageIndex) {
                     views,
                     rating,
                     duration,
-                    thumbnailUrl
+                    thumbnailUrl,
+                    author: {
+                        name: author,
+                        url: authorUrl
+                    }
                 })
             } catch {}
         }
