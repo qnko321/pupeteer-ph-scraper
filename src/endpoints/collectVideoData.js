@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer') ;
 
-async function searchVideos(url) {
+async function collectVideoData(url) {
     const browser = await puppeteer.launch({
         headless: "new"
     });
@@ -134,6 +134,7 @@ async function searchVideos(url) {
             author = document.querySelector("#hd-leftColVideoPage > div:nth-child(1) > div.video-actions-container > div.video-actions-tabs > div.video-action-tab.about-tab.active > div.video-detailed-info > div.video-info-row.userRow > div.userInfo > div > a").textContent.trim()
             authorUrl = document.querySelector("#hd-leftColVideoPage > div:nth-child(1) > div.video-actions-container > div.video-actions-tabs > div.video-action-tab.about-tab.active > div.video-detailed-info > div.video-info-row.userRow > div.userInfo > div > a").attributes.getNamedItem("href").value
         }
+        const authorAvatarUrl = document.querySelector("#hd-leftColVideoPage > div:nth-child(1) > div.video-actions-container > div.video-actions-tabs > div.video-action-tab.about-tab.active > div.video-detailed-info > div.video-info-row.userRow > div.userAvatar > img").attributes.getNamedItem("src").value
 
         const tagsElements = document.querySelector("#hd-leftColVideoPage > div:nth-child(1) > div.video-actions-container > div.video-actions-tabs > div.video-action-tab.about-tab.active > div.video-detailed-info > div:nth-child(4) > div.tagsWrapper").children;
         const tags = []
@@ -163,6 +164,7 @@ async function searchVideos(url) {
             author: {
                 name: author,
                 url: authorUrl,
+                avatarUrl: authorAvatarUrl,
                 subscribers: authorSubscribers,
                 videoCount: authorVideosCount
             },
@@ -184,4 +186,4 @@ async function searchVideos(url) {
     return Object.assign({}, jsonData, htmlData)
 }
 
-module.exports = searchVideos
+module.exports = collectVideoData
