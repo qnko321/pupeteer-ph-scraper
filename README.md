@@ -224,3 +224,39 @@ This logs data about the video which url was passed:
 }
 ```
 
+#### **searchVideos(query: string, pageIndex: number | undefined)**
+
+##### Parameters:
+###### query: any string
+###### pageIndex: should be >= 1
+
+Example:
+```js
+searchVideos("no nut november", 2).then(data => {
+    console.log(data)
+})
+```
+
+This logs videos found when searching for "no nut november" on page 2:
+
+```js
+[
+    {
+        url: '/view_video.php?viewkey=ph5dd1a18ca6112',
+        title: 'PAWG Let Me Fuck Her For A Popeyes Chicken Sandwich',
+        views: '11.9M',
+        rating: '76%',
+        duration: '13:54',
+        thumbnailUrl: 'https://ei.phncdn.com/videos/201911/17/262349162/thumbs_10/(m=eafTGgaaaa)(mh=gdZ1thptjcXpcgH4)11.jpg'
+    },
+    {
+        url: '/view_video.php?viewkey=ph63610e6d964a1',
+        title: 'FemDom No Nut November Challenge - Day 1 [Mutual Masturbation] [Handjob] [Fingering Wet Pussy]',
+        views: '86.3K',
+        rating: '81%',
+        duration: '14:16',
+        thumbnailUrl: 'https://ei.phncdn.com/videos/202211/01/418655421/original/(m=eafTGgaaaa)(mh=3fy-S74wY9dcTk51)1.jpg'
+    },
+    ...
+]
+```
