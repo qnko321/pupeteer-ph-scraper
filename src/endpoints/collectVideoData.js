@@ -6,6 +6,11 @@ async function collectVideoData(page, url) {
         resolveJson = re
     })
 
+    let resolveRelatedVideos;
+    let relatedVideos_promise = new Promise((re, _) => {
+        resolveRelatedVideos = re
+    })
+
     let resolveHtml;
     let html_promise = new Promise((re, _) => {
         resolveHtml = re
@@ -23,7 +28,33 @@ async function collectVideoData(page, url) {
 
         const duration = json.video_duration
         const actionTags = json.actionTags
-        const relatedVideosUrl = json.related_url
+        const relatedVideosUrl = json.related_url;
+
+        (async () => {
+            await fetch(relatedVideosUrl).then(response => response.json()).then(json => {
+                const relatedArray = json.related
+
+                const relatedVideos = []
+                for (let i = 0; i < relatedArray.length; i++) {
+                    const current = relatedArray[i]
+
+                    const thumbnailUrl = current[0].replaceAll("\\/", "/")
+                    const title = current[1]
+                    const duration = current[2]
+                    const url = current[4].replaceAll("\\/", "/")
+
+                    relatedVideos.push({
+                        thumbnailUrl,
+                        title,
+                        duration,
+                        url,
+                    })
+                }
+
+                resolveRelatedVideos(relatedVideos)
+            })
+        })()
+
         const thumbnailUrl = json.image_url
         const title = json.video_title
         const mediaDefinitions = json.mediaDefinitions
@@ -165,8 +196,10 @@ async function collectVideoData(page, url) {
 
     const jsonData = await json_promise
     const htmlData = await html_promise
+    const relatedVideosData = {relatedVideos: await relatedVideos_promise}
 
-    return Object.assign({}, jsonData, htmlData)
+    const obj1 = Object.assign(jsonData, htmlData)
+    return Object.assign( obj1, relatedVideosData)
 }
 
 module.exports = collectVideoData
