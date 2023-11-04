@@ -4,6 +4,8 @@ const searchVideos = require("./endpoints/searchVideos");
 const collectStartVideos = require("./endpoints/collectStartVideos");
 const collectModelData = require("./endpoints/model/collectData")
 const collectModelVideos = require("./endpoints/model/collectVideos")
+const collectChannelData = require("./endpoints/channel/collectData")
+const collectChannelVideos = require("./endpoints/channel/collectVideos")
 
 class MyBrowser {
     constructor(browser) {
@@ -48,6 +50,16 @@ class MyBrowser {
     async collectModelVideos(url, sort, pageIndex) {
         const page = await this.getPage()
         return collectModelVideos(page, url, sort, pageIndex)
+    }
+
+    async collectChannelData(url) {
+        const page = await this.getPage()
+        return collectChannelData(page, url)
+    }
+
+    async collectChannelVideos(url, sort, pageIndex) {
+        const page = await this.getPage()
+        return collectChannelVideos(page, url, sort, pageIndex)
     }
 
     async close() {
