@@ -2,10 +2,15 @@ const puppeteer = require("puppeteer");
 const collectVideoData = require("./endpoints/collectVideoData");
 const searchVideos = require("./endpoints/searchVideos");
 const collectStartVideos = require("./endpoints/collectStartVideos");
+
 const collectModelData = require("./endpoints/model/collectData")
 const collectModelVideos = require("./endpoints/model/collectVideos")
+
 const collectChannelData = require("./endpoints/channel/collectData")
 const collectChannelVideos = require("./endpoints/channel/collectVideos")
+
+const collectPornstarData = require("./endpoints/pornstar/collectData")
+const collectPornstarVideos = require("./endpoints/pornstar/collectVideos")
 
 class MyBrowser {
     constructor(browser) {
@@ -60,6 +65,16 @@ class MyBrowser {
     async collectChannelVideos(url, sort, pageIndex) {
         const page = await this.getPage()
         return collectChannelVideos(page, url, sort, pageIndex)
+    }
+
+    async collectPornstarData(url) {
+        const page = await this.getPage()
+        return collectPornstarData(page, url)
+    }
+
+    async collectPornstarVideos(url, sort, pageIndex) {
+        const page = await this.getPage()
+        return collectPornstarVideos(page, url, sort, pageIndex)
     }
 
     async close() {
