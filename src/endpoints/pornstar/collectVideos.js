@@ -1,3 +1,5 @@
+const collectModelVideos = require("../model/collectVideos")
+
 // sort: "mv" | "mr" | "tr" | "lg" | undefined  (default: mr)
 // pageIndex: number | undefined (default) (default: 1)
 async function collectPornstarVideos
@@ -31,8 +33,13 @@ async function collectPornstarVideos
         waitUntil: "domcontentloaded"
     });
 
-    return await page.evaluate(() => {
-        const videosElements = document.querySelector("#pornstarsVideoSection").children
+    const data = await page.evaluate(() => {
+        let videosElements;
+        try {
+            videosElements = document.querySelector("#pornstarsVideoSection").children
+        } catch {
+            return null
+        }
 
         const videos = []
 
@@ -67,6 +74,10 @@ async function collectPornstarVideos
 
         return videos
     })
+
+    if (data === null) {
+        return await collectModelVideos(page, url, sort, pageIndex)
+    }
 }
 
 module.exports = collectPornstarVideos
