@@ -41,7 +41,7 @@ async function collectVideoData(page, url) {
                     const thumbnailUrl = current[0].replaceAll("\\/", "/")
                     const title = current[1]
                     const duration = current[2]
-                    const url = current[4].replaceAll("\\/", "/")
+                    const url = current[4].replaceAll("\\/", "/").replaceAll("https://www.pornhub.com")
 
                     relatedVideos.push({
                         thumbnailUrl,
